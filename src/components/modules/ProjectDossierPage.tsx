@@ -292,7 +292,7 @@ function VisionIntelligence() {
                 key={l}
                 className="aspect-[4/3] rounded-[10px] border border-etch relative overflow-hidden"
                 style={{
-                  background: `linear-gradient(${100 + i * 40}deg, #1a1f28, #2c3644)`,
+                  background: `linear-gradient(${100 + i * 40}deg, var(--slab), var(--slab-raised))`,
                 }}
               >
                 <span className="absolute bottom-2 right-2 text-[10px] text-text-tertiary">
@@ -342,7 +342,7 @@ function VisionIntelligence() {
               key={l}
               className="h-24 w-36 shrink-0 rounded-[10px] border border-etch relative"
               style={{
-                background: `linear-gradient(${80 + i * 25}deg, #161a21, #283040)`,
+                background: `linear-gradient(${80 + i * 25}deg, var(--deck), var(--slab-raised))`,
               }}
             >
               <span className="absolute bottom-2 right-2 text-[10px] text-text-tertiary">

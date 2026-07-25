@@ -101,6 +101,17 @@ function LineChart({ seed }: { seed: number }) {
 
   return (
     <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-[120px]" preserveAspectRatio="none">
+      {[0.25, 0.5, 0.75].map((t) => (
+        <line
+          key={t}
+          x1={0}
+          y1={h * t}
+          x2={w}
+          y2={h * t}
+          stroke="var(--chart-grid)"
+          strokeWidth="1"
+        />
+      ))}
       <motion.path
         d={path}
         fill="none"
@@ -132,6 +143,17 @@ function AreaChart({ seed }: { seed: number }) {
 
   return (
     <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-[120px]" preserveAspectRatio="none">
+      {[0.25, 0.5, 0.75].map((t) => (
+        <line
+          key={t}
+          x1={0}
+          y1={h * t}
+          x2={w}
+          y2={h * t}
+          stroke="var(--chart-grid)"
+          strokeWidth="1"
+        />
+      ))}
       <motion.path
         d={area}
         fill="url(#areaFill)"
@@ -232,7 +254,7 @@ function GaugeChart({ seed }: { seed: number }) {
         <path
           d="M 20 70 A 50 50 0 0 1 120 70"
           fill="none"
-          stroke="var(--etch-strong)"
+          stroke="var(--chart-axis)"
           strokeWidth="10"
           strokeLinecap="round"
         />

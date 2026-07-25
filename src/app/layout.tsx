@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { themeBootScript } from "@/lib/theme";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -23,8 +24,12 @@ export default function RootLayout({
     <html
       lang="fa"
       dir="rtl"
-      className={`dark ${vazirmatn.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${vazirmatn.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className="min-h-full bg-void text-text-primary">
         <Providers>{children}</Providers>
       </body>

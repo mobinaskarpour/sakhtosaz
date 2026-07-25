@@ -125,14 +125,14 @@ export function InteractiveProjectMap({
         ))}
       </div>
 
-      <div className="rounded-[20px] border border-etch overflow-hidden bg-[#0a0c10]">
+      <div className="rounded-[20px] border border-etch overflow-hidden bg-map-canvas">
         <div className="relative">
           {/* ambient */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 70% 50% at 50% 40%, #1a2433 0%, #0a0c10 70%)",
+                "radial-gradient(ellipse 70% 50% at 50% 40%, var(--map-canvas-mid) 0%, var(--map-canvas) 70%)",
             }}
           />
 
@@ -144,8 +144,8 @@ export function InteractiveProjectMap({
           >
             <defs>
               <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#151b24" />
-                <stop offset="100%" stopColor="#0d1016" />
+                <stop offset="0%" stopColor="var(--map-building)" />
+                <stop offset="100%" stopColor="var(--map-canvas)" />
               </linearGradient>
               <pattern
                 id="fineGrid"
@@ -156,8 +156,8 @@ export function InteractiveProjectMap({
                 <path
                   d="M 4 0 L 0 0 0 4"
                   fill="none"
-                  stroke="#ffffff"
-                  strokeOpacity="0.04"
+                  stroke="var(--etch-strong)"
+                  strokeOpacity="0.5"
                   strokeWidth="0.15"
                 />
               </pattern>
@@ -179,7 +179,7 @@ export function InteractiveProjectMap({
                 iso(0, 100)
               )}
               fill="url(#groundGrad)"
-              stroke="#ffffff10"
+              stroke="var(--etch-strong)"
               strokeWidth="0.3"
             />
             <polygon
@@ -200,14 +200,14 @@ export function InteractiveProjectMap({
                 iso(80, 55)
               )}
               fill="none"
-              stroke="#ffffff0f"
+              stroke="var(--map-road)"
               strokeWidth="1.8"
               strokeLinecap="round"
             />
             <polyline
               points={pts(iso(35, 20), iso(35, 75))}
               fill="none"
-              stroke="#ffffff0a"
+              stroke="var(--etch)"
               strokeWidth="1.2"
             />
 
@@ -254,7 +254,7 @@ export function InteractiveProjectMap({
                 type="button"
                 onClick={() => setFocus({ type: "camera", id: cam.id })}
                 title={cam.label}
-                className="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-[#12161ccc] text-[#8eb6c4] backdrop-blur-sm cursor-pointer hover:scale-110 hover:border-[#6b9aab]/70 transition-transform shadow-lg"
+                className="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-full border border-etch-strong bg-[var(--map-marker-bg)] text-accent backdrop-blur-sm cursor-pointer hover:scale-110 hover:border-accent/70 transition-transform shadow-lg"
                 style={{
                   left: `${p.x}%`,
                   top: `${(p.y / 78) * 100}%`,
@@ -263,10 +263,10 @@ export function InteractiveProjectMap({
                 <Camera size={11} strokeWidth={1.7} />
                 <span
                   className={cn(
-                    "absolute top-0 left-0 h-1.5 w-1.5 rounded-full ring-2 ring-[#0a0c10]",
-                    cam.status === "online" && "bg-[#6f9f82]",
-                    cam.status === "degraded" && "bg-[#c4a35a]",
-                    cam.status === "offline" && "bg-[#c17b7b]"
+                    "absolute top-0 left-0 h-1.5 w-1.5 rounded-full ring-2 ring-[var(--map-marker-ring)]",
+                    cam.status === "online" && "bg-success",
+                    cam.status === "degraded" && "bg-warning",
+                    cam.status === "offline" && "bg-danger"
                   )}
                 />
               </button>
@@ -281,7 +281,7 @@ export function InteractiveProjectMap({
                 type="button"
                 onClick={() => setFocus({ type: "equipment", id: eq.id })}
                 title={eq.name}
-                className="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-[8px] border border-white/12 bg-[#161a21ee] text-[#c4a574] cursor-pointer hover:scale-110 transition-transform shadow-lg"
+                className="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-[8px] border border-etch-strong bg-[var(--map-marker-bg)] text-primary cursor-pointer hover:scale-110 transition-transform shadow-lg"
                 style={{
                   left: `${p.x}%`,
                   top: `${(p.y / 78) * 100}%`,
@@ -300,14 +300,14 @@ export function InteractiveProjectMap({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={spring.gentle}
-                className="pointer-events-none absolute z-30 w-[200px] rounded-[14px] border border-white/10 bg-[#12161cf2] backdrop-blur-xl p-3.5 shadow-[0_16px_48px_#00000080]"
+                className="pointer-events-none absolute z-30 w-[200px] rounded-[14px] border border-etch-strong bg-[var(--map-tooltip)] backdrop-blur-xl p-3.5 shadow-[var(--shadow-md)]"
                 style={{
                   left: Math.min(Math.max(hoverPos.x + 12, 8), 220),
                   top: Math.max(hoverPos.y - 8, 8),
                 }}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-[13px] font-semibold text-[#e8eaed]">
+                  <p className="text-[13px] font-semibold text-text-primary">
                     {hovered.name}
                   </p>
                   <span
@@ -331,9 +331,9 @@ export function InteractiveProjectMap({
                     value={`${toPersianDigits(hovered.planned)}٪`}
                   />
                 </div>
-                <p className="mt-2.5 text-[10px] text-[#9aa3b2] leading-relaxed">
+                <p className="mt-2.5 text-[10px] text-text-secondary leading-relaxed">
                   اختلاف{" "}
-                  <span className="text-[#e8eaed]">
+                  <span className="text-text-primary">
                     {hovered.delta >= 0 ? "+" : ""}
                     {toPersianDigits(hovered.delta)}٪
                   </span>
@@ -348,10 +348,10 @@ export function InteractiveProjectMap({
         </div>
 
         {/* AI strip — not cluttering the map */}
-        <div className="border-t border-white/5 bg-[#0e1218] px-4 py-3">
+        <div className="border-t border-etch bg-[var(--map-panel)] px-4 py-3">
           <div className="flex items-center gap-2 mb-2.5">
-            <Sparkles size={12} className="text-[#6b9aab]" />
-            <p className="text-[11px] text-[#6b9aab]">بینش هوش مصنوعی روی نقشه</p>
+            <Sparkles size={12} className="text-accent" />
+            <p className="text-[11px] text-accent">بینش هوش مصنوعی روی نقشه</p>
           </div>
           <div className="flex gap-2 overflow-x-auto pb-0.5">
             {mapAiPins.map((pin) => (
@@ -362,13 +362,13 @@ export function InteractiveProjectMap({
                 className={cn(
                   "shrink-0 rounded-[10px] border px-3 py-2 text-[11px] leading-snug max-w-[200px] text-right cursor-pointer transition-colors",
                   pin.tone === "danger" &&
-                    "border-[#c17b7b]/35 bg-[#c17b7b14] text-[#d4a0a0]",
+                    "border-danger/35 bg-danger-soft text-danger",
                   pin.tone === "warn" &&
-                    "border-[#c4a35a]/35 bg-[#c4a35a14] text-[#d4bc8a]",
+                    "border-warning/35 bg-warning-soft text-warning",
                   pin.tone === "ok" &&
-                    "border-[#6f9f82]/35 bg-[#6f9f8214] text-[#9bbba8]",
+                    "border-success/35 bg-success-soft text-success",
                   pin.tone === "info" &&
-                    "border-[#6b9aab]/35 bg-[#6b9aab14] text-[#8eb6c4]"
+                    "border-accent/35 bg-accent-soft text-accent"
                 )}
               >
                 {pin.message}
@@ -377,7 +377,7 @@ export function InteractiveProjectMap({
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-4 px-4 py-2.5 border-t border-white/5 text-[10px] text-[#6b7380]">
+        <div className="flex flex-wrap gap-4 px-4 py-2.5 border-t border-etch text-[10px] text-text-tertiary">
           {(
             [
               ["onSchedule", "مطابق برنامه"],
@@ -483,21 +483,21 @@ function Building({
       {/* right wall */}
       <polygon
         points={pts(f.tr, f.br, f.br0, f.tr0)}
-        fill="#0c1016"
+        fill="var(--map-canvas)"
         stroke="none"
         opacity="0.9"
       />
       {/* left wall */}
       <polygon
         points={pts(f.tl, f.bl, f.bl0, f.tl0)}
-        fill="#151a22"
+        fill="var(--map-building)"
         stroke="none"
         opacity="0.95"
       />
       {/* top face */}
       <polygon
         points={pts(f.tl, f.tr, f.br, f.bl)}
-        fill={`color-mix(in oklab, ${color} 32%, #1c2430)`}
+        fill={`color-mix(in oklab, ${color} 32%, var(--map-building))`}
         stroke={active ? color : `${color}99`}
         strokeWidth={active ? 0.45 : 0.28}
         filter={active ? "url(#softGlow)" : undefined}
@@ -505,7 +505,7 @@ function Building({
       {/* glass sheen */}
       <polygon
         points={pts(f.tl, f.tr, f.br, f.bl)}
-        fill="#ffffff"
+        fill="var(--etch-strong)"
         opacity="0.04"
       />
 
@@ -514,7 +514,7 @@ function Building({
         x={label.x}
         y={label.y - 1.2}
         textAnchor="middle"
-        fill="#e8eaed"
+        fill="var(--text-primary)"
         fontSize="2.1"
         fontWeight="600"
         style={{ pointerEvents: "none" }}
@@ -539,7 +539,7 @@ function Building({
         cy={label.y + 4.2}
         r="1.5"
         fill="none"
-        stroke="#ffffff18"
+        stroke="var(--etch-strong)"
         strokeWidth="0.35"
       />
       <circle
@@ -559,9 +559,9 @@ function Building({
 
 function HoverStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[8px] bg-white/[0.04] px-2 py-1.5">
-      <p className="text-[9px] text-[#6b7380]">{label}</p>
-      <p className="text-[13px] font-semibold tabular-nums text-[#e8eaed]">
+    <div className="rounded-[8px] bg-hover px-2 py-1.5">
+      <p className="text-[9px] text-text-tertiary">{label}</p>
+      <p className="text-[13px] font-semibold tabular-nums text-text-primary">
         {value}
       </p>
     </div>
@@ -588,7 +588,7 @@ function DetailDrawer({
     >
       <button
         type="button"
-        className="absolute inset-0 bg-black/60 cursor-pointer"
+        className="absolute inset-0 bg-overlay cursor-pointer"
         aria-label="بستن"
         onClick={onClose}
       />
@@ -597,11 +597,11 @@ function DetailDrawer({
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 32, opacity: 0 }}
         transition={spring.panel}
-        className="relative ml-auto h-full w-full max-w-[400px] overflow-y-auto border-r border-white/10 bg-[#10141a] shadow-[0_0_80px_#000000a0]"
+        className="relative ml-auto h-full w-full max-w-[400px] overflow-y-auto border-r border-etch-strong bg-map-panel shadow-[var(--shadow-md)]"
         dir="rtl"
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-white/8 bg-[#10141aee] backdrop-blur px-4 py-3.5">
-          <p className="text-[14px] font-semibold text-[#e8eaed]">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-etch bg-[var(--map-panel)] backdrop-blur px-4 py-3.5">
+          <p className="text-[14px] font-semibold text-text-primary">
             {focus.type === "zone" &&
               zones.find((z) => z.id === focus.id)?.name}
             {focus.type === "camera" &&
@@ -612,7 +612,7 @@ function DetailDrawer({
           <button
             type="button"
             onClick={onClose}
-            className="text-[#6b7380] hover:text-[#9aa3b2] cursor-pointer"
+            className="text-text-tertiary hover:text-text-secondary cursor-pointer"
           >
             <X size={16} />
           </button>
@@ -650,7 +650,7 @@ function ZonePanel({
 
   return (
     <>
-      <div className="rounded-[14px] border border-white/8 bg-white/[0.03] p-3.5">
+      <div className="rounded-[14px] border border-etch bg-hover p-3.5">
         <p
           className="text-[12px] font-medium"
           style={{ color: mapStatusColor[zone.status] }}
@@ -665,11 +665,11 @@ function ZonePanel({
             value={`${zone.delta >= 0 ? "+" : ""}${toPersianDigits(zone.delta)}`}
           />
         </div>
-        <p className="mt-3 text-[12px] text-[#9aa3b2]">مسئول: {zone.owner}</p>
+        <p className="mt-3 text-[12px] text-text-secondary">مسئول: {zone.owner}</p>
       </div>
 
-      <Block title="تحلیل AI" icon={<Sparkles size={13} className="text-[#6b9aab]" />}>
-        <p className="text-[13px] text-[#8eb6c4] leading-relaxed">{zone.aiNote}</p>
+      <Block title="تحلیل AI" icon={<Sparkles size={13} className="text-accent" />}>
+        <p className="text-[13px] text-accent leading-relaxed">{zone.aiNote}</p>
       </Block>
 
       <Block title="تصاویر این بخش">
@@ -680,11 +680,11 @@ function ZonePanel({
               key={img.id}
               src={img.src}
               alt={img.location}
-              className="h-20 w-28 shrink-0 rounded-[8px] object-cover border border-white/8"
+              className="h-20 w-28 shrink-0 rounded-[8px] object-cover border border-etch"
             />
           ))}
           {!images.length && (
-            <p className="text-[12px] text-[#6b7380]">تصویری ثبت نشده</p>
+            <p className="text-[12px] text-text-tertiary">تصویری ثبت نشده</p>
           )}
         </div>
       </Block>
@@ -694,14 +694,14 @@ function ZonePanel({
           {videos.map((v) => (
             <li
               key={v.id}
-              className="flex items-center gap-2 rounded-[8px] border border-white/8 px-2.5 py-2 text-[12px] text-[#9aa3b2]"
+              className="flex items-center gap-2 rounded-[8px] border border-etch px-2.5 py-2 text-[12px] text-text-secondary"
             >
-              <Play size={12} className="text-[#c4a574]" />
+              <Play size={12} className="text-primary" />
               {v.title}
             </li>
           ))}
           {!videos.length && (
-            <p className="text-[12px] text-[#6b7380]">ویدئویی نیست</p>
+            <p className="text-[12px] text-text-tertiary">ویدئویی نیست</p>
           )}
         </ul>
       </Block>
@@ -711,7 +711,7 @@ function ZonePanel({
           {docs.map((d) => (
             <li
               key={d.id}
-              className="rounded-[8px] border border-white/8 px-2.5 py-2 text-[11px] font-mono text-[#9aa3b2] truncate"
+              className="rounded-[8px] border border-etch px-2.5 py-2 text-[11px] font-mono text-text-secondary truncate"
             >
               {d.fileName}
             </li>
@@ -721,22 +721,22 @@ function ZonePanel({
 
       <Block
         title="مشکلات ثبت‌شده"
-        icon={<AlertTriangle size={13} className="text-[#c4a35a]" />}
+        icon={<AlertTriangle size={13} className="text-warning" />}
       >
         <ul className="space-y-1.5">
           {zone.issues.map((iss) => (
-            <li key={iss} className="text-[12px] text-[#9aa3b2]">
+            <li key={iss} className="text-[12px] text-text-secondary">
               · {iss}
             </li>
           ))}
           {!zone.issues.length && (
-            <p className="text-[12px] text-[#6f9f82]">مشکل بازی ثبت نشده</p>
+            <p className="text-[12px] text-success">مشکل بازی ثبت نشده</p>
           )}
         </ul>
       </Block>
 
       <Block title="آخرین گزارش کارگاهی">
-        <p className="text-[12px] text-[#9aa3b2] leading-relaxed">
+        <p className="text-[12px] text-text-secondary leading-relaxed">
           {zone.lastReport}
         </p>
       </Block>
@@ -748,13 +748,13 @@ function ZonePanel({
               key={w.id}
               type="button"
               onClick={() => onWorkflow(w.id)}
-              className="w-full text-right rounded-[8px] border border-[#c4a574]/30 bg-[#c4a57414] px-3 py-2 text-[12px] text-[#c4a574] cursor-pointer"
+              className="w-full text-right rounded-[8px] border border-primary/30 bg-primary-soft px-3 py-2 text-[12px] text-primary cursor-pointer"
             >
               {w.name}
             </button>
           ))}
           {!zone.relatedWorkflows.length && (
-            <p className="text-[12px] text-[#6b7380]">گردش‌کار مرتبطی نیست</p>
+            <p className="text-[12px] text-text-tertiary">گردش‌کار مرتبطی نیست</p>
           )}
         </div>
       </Block>
@@ -765,32 +765,32 @@ function ZonePanel({
 function CameraPanel({ cam }: { cam: MapCamera }) {
   return (
     <>
-      <div className="relative aspect-video rounded-[12px] overflow-hidden border border-white/8">
+      <div className="relative aspect-video rounded-[12px] overflow-hidden border border-etch">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={cam.snapshot}
           alt={cam.label}
           className="h-full w-full object-cover"
         />
-        <span className="absolute top-2 right-2 flex items-center gap-1.5 rounded-[6px] bg-black/70 px-2 py-1 text-[10px] text-white">
+        <span className="absolute top-2 right-2 flex items-center gap-1.5 rounded-[6px] bg-overlay px-2 py-1 text-[10px] text-text-primary">
           <span
             className={cn(
               "h-1.5 w-1.5 rounded-full",
-              cam.status === "online" && "bg-[#6f9f82] animate-pulse",
-              cam.status === "degraded" && "bg-[#c4a35a]",
-              cam.status === "offline" && "bg-[#c17b7b]"
+              cam.status === "online" && "bg-success animate-pulse",
+              cam.status === "degraded" && "bg-warning",
+              cam.status === "offline" && "bg-danger"
             )}
           />
           {cam.liveHint}
         </span>
       </div>
-      <Block title="تحلیل AI" icon={<Sparkles size={13} className="text-[#6b9aab]" />}>
-        <p className="text-[13px] text-[#8eb6c4] leading-relaxed">
+      <Block title="تحلیل AI" icon={<Sparkles size={13} className="text-accent" />}>
+        <p className="text-[13px] text-accent leading-relaxed">
           {cam.aiAnalysis}
         </p>
       </Block>
       <Block title="وضعیت اتصال">
-        <p className="text-[13px] text-[#9aa3b2]">
+        <p className="text-[13px] text-text-secondary">
           همگام‌سازی: {cam.lastSync}
         </p>
       </Block>
@@ -801,13 +801,13 @@ function CameraPanel({ cam }: { cam: MapCamera }) {
 function EquipmentPanel({ eq }: { eq: MapEquipment }) {
   return (
     <>
-      <div className="rounded-[12px] border border-white/8 bg-white/[0.03] p-4 flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-[10px] border border-[#c4a574]/30 bg-[#c4a57414] text-[#c4a574]">
+      <div className="rounded-[12px] border border-etch bg-hover p-4 flex items-center gap-3">
+        <span className="flex h-11 w-11 items-center justify-center rounded-[10px] border border-primary/30 bg-primary-soft text-primary">
           <EquipIcon kind={eq.kind} size={18} />
         </span>
         <div>
-          <p className="text-[14px] font-semibold text-[#e8eaed]">{eq.name}</p>
-          <p className="text-[12px] text-[#6b7380]">{eq.status}</p>
+          <p className="text-[14px] font-semibold text-text-primary">{eq.name}</p>
+          <p className="text-[12px] text-text-tertiary">{eq.status}</p>
         </div>
       </div>
       <dl className="space-y-2 text-[12px]">
@@ -815,9 +815,9 @@ function EquipmentPanel({ eq }: { eq: MapEquipment }) {
         <Row k="موقعیت GPS" v={eq.gps} />
         <Row k="سلامت دستگاه" v={`${toPersianDigits(eq.health)}٪`} />
       </dl>
-      <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+      <div className="h-1.5 rounded-full bg-hover overflow-hidden">
         <div
-          className="h-full rounded-full bg-[#c4a574]/80"
+          className="h-full rounded-full bg-primary/80"
           style={{ width: `${eq.health}%` }}
         />
       </div>
@@ -848,7 +848,7 @@ function Block({
 }) {
   return (
     <section>
-      <div className="flex items-center gap-1.5 mb-2 text-[#6b7380]">
+      <div className="flex items-center gap-1.5 mb-2 text-text-tertiary">
         {icon}
         <h4 className="text-[12px] font-medium">{title}</h4>
       </div>
@@ -859,9 +859,9 @@ function Block({
 
 function MiniStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[8px] border border-white/6 bg-black/20 px-1 py-2">
-      <p className="text-[9px] text-[#6b7380]">{label}</p>
-      <p className="mt-0.5 text-[13px] font-semibold tabular-nums text-[#e8eaed]">
+    <div className="rounded-[8px] border border-etch bg-hover px-1 py-2">
+      <p className="text-[9px] text-text-tertiary">{label}</p>
+      <p className="mt-0.5 text-[13px] font-semibold tabular-nums text-text-primary">
         {value}
       </p>
     </div>
@@ -871,8 +871,8 @@ function MiniStat({ label, value }: { label: string; value: string }) {
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex justify-between gap-2">
-      <dt className="text-[#6b7380]">{k}</dt>
-      <dd className="text-[#9aa3b2] text-left">{v}</dd>
+      <dt className="text-text-tertiary">{k}</dt>
+      <dd className="text-text-secondary text-left">{v}</dd>
     </div>
   );
 }

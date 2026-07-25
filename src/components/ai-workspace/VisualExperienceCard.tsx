@@ -198,7 +198,7 @@ function ImageStrip() {
           key={l}
           className="h-20 w-28 shrink-0 rounded-[8px] border border-etch relative overflow-hidden"
           style={{
-            background: `linear-gradient(${90 + i * 30}deg, #1a1f28, #2a3340)`,
+            background: `linear-gradient(${90 + i * 30}deg, var(--slab), var(--slab-raised))`,
           }}
         >
           <span className="absolute bottom-1 right-1.5 text-[9px] text-text-tertiary">

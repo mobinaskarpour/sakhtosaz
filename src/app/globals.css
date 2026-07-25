@@ -97,25 +97,84 @@
   --chart-3: #7a9e86;
   --chart-4: #c4a35a;
   --chart-5: #8b7a9e;
+  --chart-grid: #ffffff0a;
+  --chart-axis: #ffffff18;
+  --chart-label: #6b7380;
+
+  /* Map — Interactive Project Map */
+  --map-canvas: #0a0c10;
+  --map-canvas-mid: #1a2433;
+  --map-road: #2a3340;
+  --map-building: #1e2530;
+  --map-marker-bg: #12161ccc;
+  --map-marker-ring: #0a0c10;
+  --map-panel: #10141a;
+  --map-panel-elevated: #12161cf2;
+  --map-tooltip: #12161cee;
+  --map-status-on: var(--success);
+  --map-status-risk: var(--warning);
+  --map-status-delayed: var(--danger);
+  --map-status-complete: var(--accent);
+  --map-status-idle: var(--text-tertiary);
 }
 
+/* Light — cool concrete / steel (intentional, not inverted dark) */
 .light {
-  --void: #f4f5f7;
-  --deck: #eceef1;
-  --panel: #ffffffcc;
+  /* Surfaces */
+  --void: #f3f4f6;
+  --deck: #e8eaee;
+  --panel: #fffffff2;
   --slab: #ffffff;
-  --slab-raised: #f7f8fa;
-  --overlay: #0c0e1166;
+  --slab-raised: #f0f2f5;
+  --overlay: #14181f66;
+
+  /* Text */
   --text-primary: #14181f;
-  --text-secondary: #5c6570;
-  --text-tertiary: #8b919a;
-  --etch: #14181f0f;
-  --etch-strong: #14181f1f;
-  --hover: #14181f06;
-  --shadow-sm: 0 1px 2px #14181f0a;
-  --shadow-md: 0 8px 32px #14181f12;
-  --glow-ai: #6b9aab22;
-  --glow-primary: #c4a57418;
+  --text-secondary: #4a5563;
+  --text-tertiary: #6b7380;
+  --text-inverse: #f3f4f6;
+
+  /* Brand soft tints — stronger on white */
+  --primary-soft: #c4a57424;
+  --accent-soft: #6b9aab22;
+  --success-soft: #7a9e8622;
+  --warning-soft: #c4a35a24;
+  --danger-soft: #c17b7b22;
+
+  /* Borders / etch — readable card edges */
+  --etch: #14181f14;
+  --etch-strong: #14181f24;
+  --etch-focus: #a88b5c55;
+  --border-hover: #a88b5c50;
+
+  /* Interaction */
+  --hover: #14181f08;
+  --selection: #c4a57428;
+  --focus: #a88b5c66;
+  --glow-ai: #6b9aab28;
+  --glow-critical: #c17b7b30;
+  --glow-primary: #c4a57422;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px #14181f0c;
+  --shadow-md: 0 8px 28px #14181f14;
+  --shadow-glow: 0 0 36px var(--glow-ai);
+
+  /* Charts */
+  --chart-grid: #14181f0c;
+  --chart-axis: #14181f1a;
+  --chart-label: #5c6570;
+
+  /* Map */
+  --map-canvas: #e4e7ec;
+  --map-canvas-mid: #d5dae2;
+  --map-road: #c5cbd4;
+  --map-building: #dfe3e9;
+  --map-marker-bg: #fffffff0;
+  --map-marker-ring: #e4e7ec;
+  --map-panel: #ffffff;
+  --map-panel-elevated: #fffffff5;
+  --map-tooltip: #fffffff2;
 }
 
 @theme inline {
@@ -148,6 +207,18 @@
   --color-hover: var(--hover);
   --color-selection: var(--selection);
   --color-focus: var(--focus);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+  --color-chart-label: var(--chart-label);
+  --color-map-canvas: var(--map-canvas);
+  --color-map-road: var(--map-road);
+  --color-map-building: var(--map-building);
+  --color-map-panel: var(--map-panel);
   --font-sans: var(--font-vazirmatn);
 }
 

@@ -37,6 +37,10 @@ export const uiLabels = {
   openDashboard: "ورود به داشبورد",
   openWorkflow: "ورود به گردش‌کار",
   entryHint: "جزئیات در داشبورد تخصصی",
+  themeSwitcher: "انتخاب تم",
+  themeLight: "روشن",
+  themeDark: "تیره",
+  themeSystem: "سیستم",
 } as const;
 
 /** Six-item rail — Overview · AI · Evidence · Dashboards · Workflows · Connections */

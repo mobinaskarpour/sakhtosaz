@@ -8,6 +8,7 @@ import { Search, Sparkles, Inbox, X } from "lucide-react";
 import { spring } from "@/lib/motion";
 import { pageLabels, uiLabels } from "@/config/labels";
 import { CommandPalette } from "./CommandPalette";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 import { useReducedMotion } from "@/components/motion";
 import { useIntelligenceStore } from "@/store/intelligence-store";
 import { useSessionStore } from "@/store/session-store";
@@ -111,6 +112,8 @@ export function Topbar({ pageTitle }: { pageTitle?: string }) {
               />
             )}
           </Link>
+
+          <ThemeSwitcher />
 
           <button
             type="button"

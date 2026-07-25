@@ -37,11 +37,11 @@ export const mapZoneStatusLabel: Record<MapZoneStatus, string> = {
 };
 
 export const mapStatusColor: Record<MapZoneStatus, string> = {
-  onSchedule: "#6f9f82",
-  risk: "#c4a35a",
-  delayed: "#c17b7b",
-  complete: "#6b9aab",
-  notStarted: "#5c6570",
+  onSchedule: "var(--map-status-on)",
+  risk: "var(--map-status-risk)",
+  delayed: "var(--map-status-delayed)",
+  complete: "var(--map-status-complete)",
+  notStarted: "var(--map-status-idle)",
 };
 
 export interface MapZone {
